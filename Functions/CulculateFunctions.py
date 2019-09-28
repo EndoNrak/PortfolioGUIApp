@@ -19,5 +19,22 @@ def today_calculation():
     return today
 
 
+def total():
+    # データ取得
+    fund_prices = db.get_today_prices()
+    date_list = db.get_date_list()
+
+    benefit_list = []
+    for date in date_list:
+        # data = filter(lambda x: x["date"] == date, fund_prices)
+        data = [(n["purchase_price"]-n["current_price"]*n["count"]) for n in fund_prices]
+        print(data)
+        # benefit = [(n[2] - n[4]) * n[3] for n in data]
+        # benefit = sum[[(n[2] - n[4]) * n[3]] for n in fund_prices if n[0] == date else pass]
+        # benefit_list.append(benefit)
+    print(benefit_list)
+    return benefit_list
+
+
 if __name__ == '__main__':
-    today_calculation()
+    total()
