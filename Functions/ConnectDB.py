@@ -32,8 +32,7 @@ class DB:
         c = self.cursor
         c.execute("select date from fund_own order by date desc limit 1")
         latest_date = c.fetchone()[0]
-        c.execute("select fund_price.fund_code, fund_p"
-                  "rice.current_price, fund_own.count, fund_own.purchase_price, "
+        c.execute("select fund_price.fund_code, fund_price.current_price, fund_own.count, fund_own.purchase_price, "
                   "fund_info.fund_name, fund_info.fund_url from fund_price "
                   "inner join fund_own on fund_price.fund_code = fund_own.fund_code "
                   "inner join fund_info on fund_own.fund_code = fund_info.fund_code "
@@ -62,14 +61,13 @@ class DB:
         c.execute("select fund_price.*, fund_own.count, fund_own.purchase_price "
                   "from fund_price "
                   "inner join fund_own on fund_price.fund_code=fund_own.fund_code and fund_price.date=fund_own.date "
-                  "order by date desc")
+                  "order by date desc ")
         fund_prices = c.fetchall()
-        c.execute("select distinct fund_price.date from fund_price")
-        date = c.fetchall()
-        # return date
         return fund_prices[:17]
 
+    def get_date_list(self):
+        c = self.cursor
+        c.execute("select distinct date from fund_price order by date desc")
+        date_list = [n[0] for n in c.fetchall()]
+        return date_list
 
-if __name__ == '__main__':
-    a = DB().get_fund_total_prices()
-    print(a)
