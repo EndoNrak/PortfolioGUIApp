@@ -4,6 +4,7 @@ from Model.FundDetails import FundDetails
 
 
 class ShowFundDetailsWindow(tk.Frame):
+
     def __init__(self, master=None):
         super().__init__(master, width=400)
         self.pack(side="left")

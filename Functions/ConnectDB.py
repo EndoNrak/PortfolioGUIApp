@@ -7,7 +7,7 @@ class DB:
 
     def __init__(self):
         self.conn = sq.connect(DB.__db)
-        self.conn.row_factory = sq.Row
+        # self.conn.row_factory = sq.Row
         self.cursor = self.conn.cursor()
         self.today_prices = None
         self.second_latest_prices = None
@@ -60,8 +60,16 @@ class DB:
     def get_fund_total_prices(self):
         c = self.cursor
         c.execute("select fund_price.*, fund_own.count, fund_own.purchase_price "
-                  "from fund_prices "
+                  "from fund_price "
                   "inner join fund_own on fund_price.fund_code=fund_own.fund_code and fund_price.date=fund_own.date "
                   "order by date desc")
         fund_prices = c.fetchall()
-        print(fund_prices[1])
+        c.execute("select distinct fund_price.date from fund_price")
+        date = c.fetchall()
+        # return date
+        return fund_prices[:17]
+
+
+if __name__ == '__main__':
+    a = DB().get_fund_total_prices()
+    print(a)
