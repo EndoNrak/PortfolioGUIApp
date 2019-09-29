@@ -32,7 +32,6 @@ def total():
         # benefit = [(n[2] - n[4]) * n[3] for n in data]
         # benefit = sum[[(n[2] - n[4]) * n[3]] for n in fund_prices if n[0] == date else pass]
         # benefit_list.append(benefit)
-    print(benefit_list)
     return benefit_list
 
 
