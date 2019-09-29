@@ -70,4 +70,3 @@ class DB:
         c.execute("select distinct date from fund_price order by date desc")
         date_list = [n[0] for n in c.fetchall()]
         return date_list
-
